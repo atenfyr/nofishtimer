@@ -1,0 +1,8 @@
+author = Atenfyr
+version = 0.1.1
+displayName = No Fish Timer
+hideCode = false
+hideResources = false
+includeSource = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*, .vscode\*
+includePDB = true
