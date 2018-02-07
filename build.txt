@@ -1,6 +1,6 @@
 author = Atenfyr
-version = 0.1.1
-displayName = No Fish Timer
+version = 0.1.2
+displayName = No Angler Timer
 hideCode = false
 hideResources = false
 includeSource = true
