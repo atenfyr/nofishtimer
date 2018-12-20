@@ -4,13 +4,7 @@ using Terraria.ModLoader;
 
 namespace NoFishTimer {
 	class NoFishTimer : Mod {
-		public NoFishTimer() {
-			Properties = new ModProperties() {
-				Autoload = true,
-				AutoloadGores = true,
-				AutoloadSounds = true
-			};
-		}
+		public NoFishTimer() {}
 	}
 	
     public class thisWorld : ModWorld {
