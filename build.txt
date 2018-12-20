@@ -1,8 +1,8 @@
 author = Atenfyr
-version = 0.1.2
+version = 0.1.3
 displayName = No Angler Timer
 hideCode = false
 hideResources = false
 includeSource = true
-buildIgnore = *.csproj, *.user, obj\*, bin\*, .vscode\*
+buildIgnore = *.csproj, *.user
 includePDB = true
