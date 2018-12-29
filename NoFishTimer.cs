@@ -8,10 +8,10 @@ namespace NoFishTimer {
 	}
 	
     	public class thisWorld : ModWorld {
-		public override void PreUpdate() {
-		    if (Main.anglerQuestFinished && Main.anglerWhoFinishedToday.Contains(Main.player[Main.myPlayer].name)) {
-			Main.AnglerQuestSwap();
-		    }
-		}
+        	public override void PreUpdate() {
+            		if (Main.netMode != 1 && Main.anglerWhoFinishedToday.Count > 0) {
+				Main.AnglerQuestSwap();
+            		}
+        	}
     	}
 }
