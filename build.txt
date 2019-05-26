@@ -1,8 +1,9 @@
 author = Atenfyr
-version = 0.1.4
+version = 0.1.6
 displayName = No Angler Timer
+homepage = https://forums.terraria.org/index.php?threads/no-angler-timer.76762/
 hideCode = false
 hideResources = false
 includeSource = true
-buildIgnore = *.csproj, *.user
-includePDB = true
+buildIgnore = *.csproj, *.user, obj\*, bin\*
+includePDB = false
