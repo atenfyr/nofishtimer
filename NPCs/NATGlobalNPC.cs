@@ -33,7 +33,16 @@ namespace NoFishTimer.NPCs
             c.MarkLabel(label);
             if (!c.TryGotoNext(i => i.MatchCall(typeof(AchievementsHelper).GetMethod(nameof(AchievementsHelper.HandleAnglerService))))) throw new Exception("Can't patch force reset");
             c.Emit(Call, typeof(NoFishTimer).GetMethod(nameof(NoFishTimer.AnglerQuestSwap)));
-            c.EmitDelegate<Action>(() => Main.npcChatText = Lang.AnglerQuestChat()); // this is where we change the dialog to show the new quest
+            c.EmitDelegate<Action>(() => {
+                if (!NoFishWorld.serverConfig.DisableAnglerTimer)
+                {
+                    Main.npcChatText = Lang.AnglerQuestChat(true);
+                }
+                else if (Main.netMode != 1)
+                {
+                    Main.npcChatText = Lang.AnglerQuestChat();
+                }
+            });
 
             // add reroll button
             c.Goto(0);
@@ -121,7 +130,7 @@ namespace NoFishTimer.NPCs
                 }
 
                 text2 = text2.Substring(0, text2.Length - 1);
-                return "Reroll (" + text2 + ")";
+                return Language.GetTextValue("Mods.NoFishTimer.Dialog.Reroll") + " (" + text2 + ")";
             });
             c.Emit(Stloc_S, (byte)10);
 
@@ -185,23 +194,58 @@ namespace NoFishTimer.NPCs
 
         public override void OnChatButtonClicked(NPC npc, bool firstButton)
         {
-            if (npc.type == NPCID.Angler && !firstButton && Main.LocalPlayer.CanBuyItem(NoFishWorld.serverConfig.RerollPrice))
+            if (npc.type == NPCID.Angler)
             {
-                Main.LocalPlayer.BuyItem(NoFishWorld.serverConfig.RerollPrice);
-
-                if (Main.netMode == 1)
+                if (firstButton)
                 {
-                    ModPacket packet = mod.GetPacket();
-                    packet.Write((byte)NATMessageType.ForceSwap);
-                    packet.Send();
+                    if (Main.anglerQuestFinished && NoFishWorld.serverConfig.DisableAnglerTimer)
+                    {
+                        if (Main.netMode == 1)
+                        {
+                            ModPacket packet = mod.GetPacket();
+                            packet.Write((byte)NATMessageType.ForceSwap);
+                            packet.Send();
+                        }
+                        else
+                        {
+                            Main.AnglerQuestSwap();
+                            Main.npcChatText = Lang.AnglerQuestChat();
+                        }
+                    }
                 }
                 else
                 {
-                    Main.AnglerQuestSwap();
-                    Main.npcChatText = Lang.AnglerQuestChat();
-                }
+                    if (Main.anglerQuestFinished)
+                    {
+                        Main.npcChatCornerItem = 0;
+                        Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                        Main.npcChatText = Lang.AnglerQuestChat();
+                    }
+                    else if (Main.LocalPlayer.CanBuyItem(NoFishWorld.serverConfig.RerollPrice))
+                    {
+                        Main.LocalPlayer.BuyItem(NoFishWorld.serverConfig.RerollPrice);
 
-                Main.PlaySound(SoundID.Item37);
+                        if (Main.netMode == 1)
+                        {
+                            ModPacket packet = mod.GetPacket();
+                            packet.Write((byte)NATMessageType.ForceSwap);
+                            packet.Send();
+                        }
+                        else
+                        {
+                            Main.AnglerQuestSwap();
+                            Main.npcChatText = Lang.AnglerQuestChat();
+                        }
+
+                        Main.PlaySound(SoundID.Item37);
+                    }
+                    else
+                    {
+                        Main.npcChatCornerItem = 0;
+                        Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                        Main.npcChatText = Language.GetTextValue("Mods.NoFishTimer.Dialog.FailRollBecauseBroke" + Main.rand.Next(5));
+                    }
+                }
             }
         }
     }

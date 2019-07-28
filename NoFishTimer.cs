@@ -1,4 +1,3 @@
-using Microsoft.Xna.Framework.Graphics;
 using System;
 using System.IO;
 using Terraria;
@@ -43,6 +42,7 @@ namespace NoFishTimer
                 AnglerQuestSwap();
                 ModPacket packet = GetPacket();
                 packet.Write((byte)NATMessageType.ForceRefresh);
+                packet.Write(!NoFishWorld.serverConfig.DisableAnglerTimer);
                 packet.Send();
             }
             return base.HijackGetData(ref messageType, ref reader, playerNumber);
@@ -59,11 +59,13 @@ namespace NoFishTimer
                         Main.AnglerQuestSwap();
                         ModPacket packet = GetPacket();
                         packet.Write((byte)NATMessageType.ForceRefresh);
+                        packet.Write(false);
                         packet.Send();
                     }
                     break;
                 case NATMessageType.ForceRefresh:
-                    if (Main.netMode != 2 && Main.npc[Main.LocalPlayer.talkNPC].type == NPCID.Angler) Main.npcChatText = Lang.AnglerQuestChat();
+                    bool flag = reader.ReadBoolean();
+                    if (Main.netMode != 2 && Main.npc[Main.LocalPlayer.talkNPC].type == NPCID.Angler) Main.npcChatText = Lang.AnglerQuestChat(flag);
                     break;
                 default:
                     Logger.WarnFormat("NoFishTimer.HandlePacket() warning: Unknown message type: {0}", msgType);
@@ -74,12 +76,6 @@ namespace NoFishTimer
         public static void AnglerQuestSwap()
         {
             if (NoFishWorld.serverConfig.DisableAnglerTimer) Main.AnglerQuestSwap();
-        }
-
-        // backup if IL fails
-        public override void PostDrawInterface(SpriteBatch spriteBatch)
-        {
-            if (Main.anglerWhoFinishedToday.Count > 0 && Main.netMode != 1) AnglerQuestSwap();
         }
 
         public override void PostSetupContent()

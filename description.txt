@@ -1,1 +1,1 @@
-Disables the timer for the Angler's quest.
+A simple mod that disables the timer for the Angler's quest and adds a "reroll" button to switch the fish that the Angler has for 5 gold. Everything is configurable.
