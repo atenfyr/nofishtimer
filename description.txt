@@ -1,0 +1,1 @@
+Disables the timer for the Angler's quest.
