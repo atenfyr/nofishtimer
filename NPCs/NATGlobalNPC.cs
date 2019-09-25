@@ -215,7 +215,7 @@ namespace NoFishTimer.NPCs
                 }
                 else
                 {
-                    if (Main.anglerQuestFinished)
+                    if (Main.anglerQuestFinished && !NoFishWorld.serverConfig.CanRerollWhenFinished)
                     {
                         Main.npcChatCornerItem = 0;
                         Main.PlaySound(12, -1, -1, 1, 1f, 0f);

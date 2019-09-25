@@ -18,7 +18,7 @@ namespace NoFishTimer
         {
             get
             {
-                return DisableAnglerTimer && DisableResetInMorning && RerollPrice == 50000;
+                return DisableAnglerTimer && DisableResetInMorning && !CanRerollWhenFinished && RerollPrice == 50000;
             }
             set
             {
@@ -26,6 +26,7 @@ namespace NoFishTimer
                 {
                     DisableAnglerTimer = true;
                     DisableResetInMorning = true;
+                    CanRerollWhenFinished = false;
                     RerollPrice = 50000;
                 }
             }
@@ -38,7 +39,7 @@ namespace NoFishTimer
         {
             get
             {
-                return DisableAnglerTimer && !DisableResetInMorning && RerollPrice == 0;
+                return DisableAnglerTimer && !DisableResetInMorning && !CanRerollWhenFinished && RerollPrice == 0;
             }
             set
             {
@@ -46,6 +47,7 @@ namespace NoFishTimer
                 {
                     DisableAnglerTimer = true;
                     DisableResetInMorning = false;
+                    CanRerollWhenFinished = false;
                     RerollPrice = 0;
                 }
             }
@@ -58,7 +60,7 @@ namespace NoFishTimer
         {
             get
             {
-                return !DisableAnglerTimer && !DisableResetInMorning && RerollPrice == 0;
+                return !DisableAnglerTimer && !DisableResetInMorning && !CanRerollWhenFinished && RerollPrice == 0;
             }
             set
             {
@@ -66,6 +68,7 @@ namespace NoFishTimer
                 {
                     DisableAnglerTimer = false;
                     DisableResetInMorning = false;
+                    CanRerollWhenFinished = false;
                     RerollPrice = 0;
                 }
             }
@@ -95,6 +98,14 @@ namespace NoFishTimer
         [SliderColor(204, 181, 72)]
         [CustomModConfigItem(typeof(SpecialIntRangeElement))]
         public int RerollPrice
+        {
+            get;
+            set;
+        }
+
+        [Tooltip("Should the reroll button work if the current quest has already been finished?")]
+        [DefaultValue(false)]
+        public bool CanRerollWhenFinished
         {
             get;
             set;
