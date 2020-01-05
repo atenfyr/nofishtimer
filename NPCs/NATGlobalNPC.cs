@@ -215,36 +215,39 @@ namespace NoFishTimer.NPCs
                 }
                 else
                 {
-                    if (Main.anglerQuestFinished && !NoFishWorld.serverConfig.CanRerollWhenFinished)
+                    if (NoFishWorld.serverConfig.RerollPrice > 0) // double check just in case
                     {
-                        Main.npcChatCornerItem = 0;
-                        Main.PlaySound(12, -1, -1, 1, 1f, 0f);
-                        Main.npcChatText = Lang.AnglerQuestChat();
-                    }
-                    else if (Main.LocalPlayer.CanBuyItem(NoFishWorld.serverConfig.RerollPrice))
-                    {
-                        Main.LocalPlayer.BuyItem(NoFishWorld.serverConfig.RerollPrice);
-
-                        if (Main.netMode == 1)
+                        if (Main.anglerQuestFinished && !NoFishWorld.serverConfig.CanRerollWhenFinished)
                         {
-                            ModPacket packet = mod.GetPacket();
-                            packet.Write((byte)NATMessageType.ForceSwap);
-                            packet.Send();
+                            Main.npcChatCornerItem = 0;
+                            Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                            Main.npcChatText = Lang.AnglerQuestChat();
+                        }
+                        else if (Main.LocalPlayer.CanBuyItem(NoFishWorld.serverConfig.RerollPrice))
+                        {
+                            Main.LocalPlayer.BuyItem(NoFishWorld.serverConfig.RerollPrice);
+
+                            if (Main.netMode == 1)
+                            {
+                                ModPacket packet = mod.GetPacket();
+                                packet.Write((byte)NATMessageType.ForceSwap);
+                                packet.Send();
+                            }
+                            else
+                            {
+                                Main.AnglerQuestSwap();
+                                Main.npcChatText = Lang.AnglerQuestChat();
+                            }
+
+                            Main.PlaySound(SoundID.Item37);
                         }
                         else
                         {
-                            Main.AnglerQuestSwap();
-                            Main.npcChatText = Lang.AnglerQuestChat();
+                            Main.npcChatCornerItem = 0;
+                            Main.PlaySound(12, -1, -1, 1, 1f, 0f);
+                            Main.npcChatText = Language.GetTextValue("Mods.NoFishTimer.Dialog.FailRollBecauseBroke" + Main.rand.Next(5));
                         }
-
-                        Main.PlaySound(SoundID.Item37);
-                    }
-                    else
-                    {
-                        Main.npcChatCornerItem = 0;
-                        Main.PlaySound(12, -1, -1, 1, 1f, 0f);
-                        Main.npcChatText = Language.GetTextValue("Mods.NoFishTimer.Dialog.FailRollBecauseBroke" + Main.rand.Next(5));
-                    }
+                    }     
                 }
             }
         }

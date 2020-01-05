@@ -1,5 +1,5 @@
 author = Atenfyr
-version = 1.1.0
+version = 1.1.1
 displayName = No Angler Timer
 homepage = https://forums.terraria.org/index.php?threads/no-angler-timer.76762/
 hideCode = true
