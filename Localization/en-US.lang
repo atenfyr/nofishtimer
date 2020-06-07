@@ -1,0 +1,22 @@
+No Angler Timer's language file for the coolest kids on the block
+
+-- Dialog --
+Dialog.Reroll=Reroll
+Dialog.FailRollBecauseBroke0=I ain't gonna change my mind for free, pal.
+Dialog.FailRollBecauseBroke1=You have to actually have money to bribe someone, you know.
+Dialog.FailRollBecauseBroke2=Come back when you aren't broke. 
+Dialog.FailRollBecauseBroke3=Why don't you go kill a slime?
+Dialog.FailRollBecauseBroke4=Everything's got a price, bud.
+
+-- Config --
+Config.ClassicD=The classic experience, which disables the Angler's quest timer and adds the ability to reroll the quest.
+Config.BareBonesD=Adds no features other than disabling the Angler's quest timer.
+Config.VanillaD=Replicates the Angler's behavior in vanilla Terraria.
+Config.DisableAnglerTimerD=Should the Angler provide a new quest immediately after the player completes his quest?
+Config.DisableResetInMorningD=Should the Angler keep his quest at 4:30 AM every day?
+Config.RerollPriceD=The amount of money that it costs to reroll the Angler's quest.
+Config.CanRerollWhenFinishedD=Should the reroll button work if the current quest has already been finished?
+
+Config.NoPerms=You can't perform this action because you don't have the "%1" permission.
+
+Config.Disabled=Disabled

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Terraria;
+using Terraria.Localization;
 using Terraria.ModLoader.Config;
 using Terraria.ModLoader.Config.UI;
 
@@ -10,24 +11,9 @@ namespace NoFishTimer.UI
     {
         public static string ValueToCoins(int num, string zeroString = "0 copper")
         {
+            if (zeroString == "0 copper") zeroString = "0 " + Language.GetTextValue("LegacyInterface.18");
             if (num < 1) return zeroString;
             return Main.ValueToCoins(num);
-        }
-
-        public static string SecondsToHMS(int num, string zeroString = "0 seconds")
-        {
-            if (num < 1) return zeroString;
-
-            string res = "";
-            int hours = num / 3600;
-            if (hours > 0) res += hours + $" hour{(hours == 1 ? "" : "s")} ";
-            num %= 3600;
-            int minutes = num / 60;
-            if (minutes > 0) res += minutes + $" minute{(minutes == 1 ? "" : "s")} ";
-            num %= 60;
-            if (num > 0) res += num + $" second{(num == 1 ? "" : "s")} ";
-
-            return res.TrimEnd();
         }
     }
 
@@ -83,8 +69,8 @@ namespace NoFishTimer.UI
         public string TransformValue(int val, string label)
         {
             string newLabel = label == "value" ? "rent" : label;
-            if (units == Unit.Time) return newLabel + ": " + UsefulThings.SecondsToHMS(val, "1 tick");
-            return newLabel + ": " + UsefulThings.ValueToCoins(val, "Disabled");
+            if (units == Unit.Time) return newLabel + ": Unimplemented";
+            return newLabel + ": " + UsefulThings.ValueToCoins(val, Language.GetTextValue("Mods.NoFishTimer.Config.Disabled"));
         }
 
         protected int GetValue()

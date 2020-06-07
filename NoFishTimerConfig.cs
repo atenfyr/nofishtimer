@@ -2,6 +2,7 @@ using Newtonsoft.Json;
 using NoFishTimer.UI;
 using System;
 using System.ComponentModel;
+using Terraria.Localization;
 using Terraria.ModLoader.Config;
 
 namespace NoFishTimer
@@ -13,7 +14,7 @@ namespace NoFishTimer
         [Header("Presets")]
         [JsonIgnore]
         [Label("Classic")]
-        [Tooltip("The classic experience, which disables the Angler's quest timer and adds the ability to reroll the quest.")]
+        [Tooltip("$Mods.NoFishTimer.Config.ClassicD")]
         public bool ClassicPreset
         {
             get
@@ -34,7 +35,7 @@ namespace NoFishTimer
 
         [JsonIgnore]
         [Label("Bare-bones")]
-        [Tooltip("Adds no features other than disabling the Angler's quest timer.")]
+        [Tooltip("$Mods.NoFishTimer.Config.BareBonesD")]
         public bool BareBonesPreset
         {
             get
@@ -55,7 +56,7 @@ namespace NoFishTimer
 
         [JsonIgnore]
         [Label("Vanilla")]
-        [Tooltip("Replicates the Angler's behavior in vanilla Terraria.")]
+        [Tooltip("$Mods.NoFishTimer.Config.VanillaD")]
         public bool VanillaPreset
         {
             get
@@ -75,7 +76,7 @@ namespace NoFishTimer
         }
 
         [Header("Configuration")]
-        [Tooltip("Should the Angler provide a new quest immediately after the player completes his quest?")]
+        [Tooltip("$Mods.NoFishTimer.Config.DisableAnglerTimerD")]
         [DefaultValue(true)]
         public bool DisableAnglerTimer
         {
@@ -83,7 +84,7 @@ namespace NoFishTimer
             set;
         }
 
-        [Tooltip("Should the Angler keep his quest at 4:30 AM every day?")]
+        [Tooltip("$Mods.NoFishTimer.Config.DisableResetInMorningD")]
         [DefaultValue(true)]
         public bool DisableResetInMorning
         {
@@ -91,7 +92,7 @@ namespace NoFishTimer
             set;
         }
 
-        [Tooltip("The amount of money that it costs to reroll the Angler's quest.")]
+        [Tooltip("$Mods.NoFishTimer.Config.RerollPriceD")]
         [Range(0, 500000)]
         [Increment(5000)]
         [DefaultValue(50000)]
@@ -103,7 +104,7 @@ namespace NoFishTimer
             set;
         }
 
-        [Tooltip("Should the reroll button work if the current quest has already been finished?")]
+        [Tooltip("$Mods.NoFishTimer.Config.CanRerollWhenFinishedD")]
         [DefaultValue(false)]
         public bool CanRerollWhenFinished
         {
@@ -125,7 +126,7 @@ namespace NoFishTimer
                 object data = NoFishTimer.Instance.herosMod.Call("HasPermission", whoAmI, "ModifyFTConfig");
                 if (data is bool) theBool = (bool)data;
 
-                if (!theBool) message = "You lack the \"Modify Angler Config\" permission.";
+                if (!theBool) message = Language.GetTextValue("Mods.NoFishTimer.Config.NoPerms").Replace(@"%1", "Modify Angler Config");
                 return theBool;
             }
             return true;

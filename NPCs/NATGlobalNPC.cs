@@ -24,7 +24,7 @@ namespace NoFishTimer.NPCs
             var c = new ILCursor(il).Goto(0);
 
             // we force reset the angler quest if not on a server
-            if (!c.TryGotoNext(i => i.MatchLdsfld(typeof(Main).GetField(nameof(Main.anglerWhoFinishedToday))))) throw new Exception("Can't patch force reset"); // for some reason if i use the better method it crashes, so we gotta settle for this
+            if (!c.TryGotoNext(i => i.MatchLdsfld(typeof(Main).GetField(nameof(Main.anglerWhoFinishedToday))))) throw new Exception("Can't patch force reset");
             if (!c.TryGotoNext(i => i.MatchCall(typeof(Lang).GetMethod(nameof(Lang.AnglerQuestChat))))) throw new Exception("Can't patch force reset");
             ILLabel label = il.DefineLabel();
             c.Emit(Brtrue_S, label);

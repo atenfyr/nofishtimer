@@ -1,0 +1,22 @@
+Esta traducción no es perfecta
+
+-- Diálogo --
+Dialog.Reroll=Repetir la tirada
+Dialog.FailRollBecauseBroke0=No voy a cambiar de opinión gratis, compinche.
+Dialog.FailRollBecauseBroke1=Necesitas dinero para sobornarme, ya sabes.
+Dialog.FailRollBecauseBroke2=Vuelve cuando tienes dinero.
+Dialog.FailRollBecauseBroke3=¿Por qué no mata una slime?
+Dialog.FailRollBecauseBroke4=Todo tiene un precio, amigo.
+
+-- Configuración --
+Config.ClassicD=La experiencia clásica que apaga el temporizador de la misión del Angler y agrega la capacidad de repetir la tirada de la misión.
+Config.BareBonesD=No agrega nada sino apagar el temporizador de la misión del Angler.
+Config.VanillaD=Devuelve al funcionamiento del Angler en Terraria vainilla.
+Config.DisableAnglerTimerD=¿El Angler da una misión nueva inmediatamente después de que el jugador completa la misión en curso?
+Config.DisableResetInMorningD=¿El Angler guarda su misión a las 4:30 a.m. cada día?
+Config.RerollPriceD=La cantidad de dinero que el Angler cobra para repetir la tirada de su misión.
+Config.CanRerollWhenFinishedD=¿El botón de repetir la tirada funciona si la misión en curso ya ha terminado?
+
+Config.NoPerms=No puedes realizar esta acción porque no tienes el permiso "%1".
+
+Config.Disabled=Deshabilitado
